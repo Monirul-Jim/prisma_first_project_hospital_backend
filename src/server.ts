@@ -1,6 +1,10 @@
-import express from "express";
-const app = express();
+import { Server } from "http";
+import app from "./app";
 const port = 3000;
-app.listen(port, () => {
-  console.log("App is listing on port ", port);
-});
+
+async function main() {
+  const server: Server = app.listen(port, () => {
+    console.log("App is listing on port ", port);
+  });
+}
+main();
