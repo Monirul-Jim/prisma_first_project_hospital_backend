@@ -30,6 +30,14 @@ const getAllFromDb = async (params: any, options: any) => {
     where: whereConditions,
     skip: (Number(page) - 1) * Number(limit),
     take: Number(limit),
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? {
+            [options.sortBy]: options.sortOrder,
+          }
+        : {
+            createdAt: "desc",
+          },
   });
   return result;
 };
