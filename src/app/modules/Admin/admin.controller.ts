@@ -1,9 +1,23 @@
 import { Request, Response } from "express";
 import { AdminServices } from "./admin.services";
-
+const pick = (obj, keys) => {
+  const finalObj = {};
+  for (const key of keys) {
+    if (obj && Object.hasOwnProperty.call(obj, key)) {
+      finalObj[key] = obj[key];
+    }
+  }
+  return finalObj;
+};
 const getAllFromDb = async (req: Request, res: Response) => {
   try {
-    const result = await AdminServices.getAllFromDb(req.query);
+    const filterDt = pick(req.query, [
+      "name",
+      "email",
+      "searchTerm",
+      "contactNumber",
+    ]);
+    const result = await AdminServices.getAllFromDb(filterDt);
     res.status(200).json({
       success: true,
       message: "Admin data fetched",
