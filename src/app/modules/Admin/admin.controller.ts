@@ -1,14 +1,7 @@
 import { Request, Response } from "express";
 import { AdminServices } from "./admin.services";
-const pick = (obj, keys) => {
-  const finalObj = {};
-  for (const key of keys) {
-    if (obj && Object.hasOwnProperty.call(obj, key)) {
-      finalObj[key] = obj[key];
-    }
-  }
-  return finalObj;
-};
+import pick from "../../../shared/pick";
+
 const getAllFromDb = async (req: Request, res: Response) => {
   try {
     const filterDt = pick(req.query, [
