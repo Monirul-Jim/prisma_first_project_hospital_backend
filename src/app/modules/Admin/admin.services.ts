@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const getAllFromDb = async (params: any) => {
+  const { searchTerm, ...filterData } = params;
   const andConditions: Prisma.AdminWhereInput[] = [];
   const adminSearchableFields = ["name", "email"];
   if (params.searchTerm) {
@@ -9,6 +10,15 @@ const getAllFromDb = async (params: any) => {
         [field]: {
           contains: params.searchTerm,
           mode: "insensitive",
+        },
+      })),
+    });
+  }
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map((key) => ({
+        [key]: {
+          equals: filterData[key],
         },
       })),
     });
