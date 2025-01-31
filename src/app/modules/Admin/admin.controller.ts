@@ -2,15 +2,17 @@ import { Request, Response } from "express";
 import { AdminServices } from "./admin.services";
 import pick from "../../../shared/pick";
 import { adminFilterableFields } from "./admin.constant";
+import sendResponse from "../../../shared/sendResponse";
 
 const getAllFromDb = async (req: Request, res: Response) => {
   try {
     const filters = pick(req.query, adminFilterableFields);
     const options = pick(req.query, ["limit", "page", "sortBy", "sortOrder"]);
     const result = await AdminServices.getAllFromDb(filters, options);
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
-      message: "Admin data fetched",
+      message: "Admin Fetch successfully",
       meta: result.meta,
       data: result.data,
     });
@@ -27,7 +29,8 @@ const getByIdFromDb = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const result = await AdminServices.getByIdFromDb(id);
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
       message: "Admin data is fetched successfully",
       data: result,
@@ -44,7 +47,8 @@ const updateIntoDb = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const result = await AdminServices.updateIntoDb(id, req.body);
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
       message: "Admin data updated successfully",
       data: result,
@@ -61,7 +65,8 @@ const deleteFromDb = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const result = await AdminServices.deleteFromDb(id);
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
       message: "Admin data deleted successfully",
       data: result,
@@ -78,7 +83,8 @@ const softDeleteFromDb = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const result = await AdminServices.softDeleteFromDb(id);
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
       message: "Admin data deleted successfully",
       data: result,
