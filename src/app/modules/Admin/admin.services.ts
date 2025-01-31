@@ -53,9 +53,16 @@ const getAllFromDb = async (params: any, options: any) => {
     data: result,
   };
 };
+
+const getByIdFromDb = async () => {
+  console.log("get by id");
+};
+
 export const AdminServices = {
   getAllFromDb,
+  getByIdFromDb,
 };
+
 // [
 //     {
 //       name: {
