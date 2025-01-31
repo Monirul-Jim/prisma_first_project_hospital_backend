@@ -22,9 +22,11 @@ const getAllFromDb = async (req: Request, res: Response) => {
     });
   }
 };
-const getByIdFromDb = async (req: Response, res: Response) => {
+
+const getByIdFromDb = async (req: Request, res: Response) => {
+  const { id } = req.params;
   try {
-    const result = await AdminServices.getByIdFromDb();
+    const result = await AdminServices.getByIdFromDb(id);
     res.status(200).json({
       success: true,
       message: "Admin data is fetched successfully",
