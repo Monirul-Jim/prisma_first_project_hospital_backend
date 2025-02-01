@@ -3,7 +3,7 @@ import sendResponse from "../../../shared/sendResponse";
 import { AuthServices } from "./auth.services";
 
 const loginUser = catchAsync(async (req, res) => {
-  const result = await AuthServices.loginUser();
+  const result = await AuthServices.loginUser(req.body);
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -11,3 +11,6 @@ const loginUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+export const AuthController = {
+  loginUser,
+};
